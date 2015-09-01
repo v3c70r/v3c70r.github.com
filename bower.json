@@ -1,0 +1,23 @@
+{
+  "name": "web-term",
+  "private": true,
+  "dependencies": {
+    "Materialize": "materialize#~0.97.0",
+    "bootstrap-sass": "~3.3.5",
+    "modernizr": "~2.8.3",
+    "terminal": "v3c70r/terminal"
+  },
+  "overrides": {
+    "bootstrap-sass": {
+      "main": [
+        "assets/stylesheets/_bootstrap.scss",
+        "assets/fonts/bootstrap/*",
+        "assets/javascripts/bootstrap.js"
+      ]
+    }
+  },
+  "devDependencies": {
+    "chai": "~3.2.0",
+    "mocha": "~2.3.0"
+  }
+}
