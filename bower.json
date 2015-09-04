@@ -2,10 +2,12 @@
   "name": "web-term",
   "private": true,
   "dependencies": {
-    "Materialize": "materialize#~0.97.0",
     "bootstrap-sass": "~3.3.5",
+    "bootstrap-social": "~4.10.0",
+    "components-font-awesome": "~4.4.0",
     "modernizr": "~2.8.3",
-    "terminal": "v3c70r/terminal"
+    "terminal": "v3c70r/terminal",
+    "three.js": "threejs#*"
   },
   "overrides": {
     "bootstrap-sass": {
