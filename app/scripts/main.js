@@ -1,8 +1,7 @@
 // jshint devel:true
 "use strict";
 
-
-
+//======TERMINAL=======
 var terminal = new Terminal('terminal', {
             welcome: 'Hey, Welcome to my web terminal, type <b>help</b> for details' ,
             prompt: '<span class="glyphicon glyphicon-heart-empty" style="color:gray"></span> ', separator: '&gt;'
@@ -62,11 +61,138 @@ var commands =
             }
         return "Usage: nayn [fat|mummy|original|zombie]";
     },
-
-
+    'exit': function(args){
+        close();   // Closes the new window
+    },
     //====Play ground===
     'test': function(args) {
         return 'Nothing here';
     },
     
 };
+
+//===========THREE JS========
+
+
+//Ugly global vars like old GLUT
+var mouseX = 0, mouseY = 0;
+var windowHalfX = window.innerWidth/2;
+var windowHalfY = window.innerHeight/2;
+var scene, camera, renderer, material;
+var cube;
+var light;
+
+init();
+animate();
+
+function init(){
+    //init scene
+    scene = new THREE.Scene();
+    //init camera
+    camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 2, 2000 );
+    camera.position.z = 900;
+
+
+    //Tell renderer where to render
+    var container = document.getElementById('stage');
+    //setting up renderer
+    renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setClearColor( 0xffffff ); 
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    container.appendChild(renderer.domElement);
+
+    //add some materials
+    material = new THREE.MeshPhongMaterial({
+        color: 0xaaaaaa, specular: 0xffffff, shininess: 250,
+        side: THREE.DoubleSide, vertexColors: THREE.VertexColors
+    });
+
+    //var geometry = new THREE.BoxGeometry( 300, 300, 300 );
+    //cube = new THREE.Mesh( geometry, material );
+    //scene.add( cube );
+    //var loader = new THREE.JSONLoader();
+    //loader.load('images/flamingo.js', function (geometry, material){
+    //    cube = new THREE.Mesh(geometry, material);
+    //    cube.position.set(0,0,0);
+    //});
+    var nyanCatStars = new THREEx.NyanCatStars();
+    nyanCatStars.container.scale.multiplyScalar(9);
+    scene.add(nyanCatStars.container);
+
+    var nyanCat = new THREEx.NyanCat();
+    nyanCat.container.scale.multiplyScalar(9);
+    scene.add(nyanCat.container);
+    //updateFcts.push(function(delta, now){
+    //    if( paused )    return
+    //    nyanCat.update(delta, now)
+    //})
+
+    //setting up light
+    light = new THREE.DirectionalLight(0xffffff, 1.5);
+    light.position.set( 1, 1, 1);
+    scene.add(light);
+
+    window.addEventListener( 'resize', onWindowResize, false );
+    document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+    document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+    document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+
+}
+
+//mouse callback
+function onDocumentMouseMove( event ) {
+
+    mouseX = event.clientX - windowHalfX;
+    mouseY = event.clientY - windowHalfY;
+
+}
+//Touching stuffs
+function onDocumentTouchStart( event ) {
+
+    if ( event.touches.length > 1 ) {
+
+        event.preventDefault();
+
+        mouseX = event.touches[ 0 ].pageX - windowHalfX;
+        mouseY = event.touches[ 0 ].pageY - windowHalfY;
+
+    }
+
+}
+function onDocumentTouchMove( event ) {
+
+    if ( event.touches.length == 1 ) {
+
+        event.preventDefault();
+
+        mouseX = event.touches[ 0 ].pageX - windowHalfX;
+        mouseY = event.touches[ 0 ].pageY - windowHalfY;
+    }
+
+}
+
+function animate() {
+
+    requestAnimationFrame( animate );
+    render();
+}
+
+function render() {
+    camera.position.x += ( mouseX - camera.position.x ) * 0.05;
+    camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
+    camera.lookAt( scene.position );
+    renderer.render(scene, camera);
+
+}
+//resize callback
+function onWindowResize() {
+
+    windowHalfX = window.innerWidth / 2;
+    windowHalfY = window.innerHeight / 2;
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+}
