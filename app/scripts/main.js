@@ -31,7 +31,7 @@ var commands =
     },
 
     'help':function (args) {
-        return Object.keys(this);
+        return (Object.keys(this)).toString();
     },
 
 
@@ -63,6 +63,7 @@ var commands =
     },
     'exit': function(args){
         close();   // Closes the new window
+        return 'OOps..';
     },
     //====Play ground===
     'test': function(args) {
