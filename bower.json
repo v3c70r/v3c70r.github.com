@@ -4,6 +4,7 @@
   "dependencies": {
     "bootstrap-sass": "~3.3.5",
     "bootstrap-social": "~4.10.0",
+    "elizabot": "v3c70r/elizabot",
     "font-awesome": "~4.4.0",
     "modernizr": "~2.8.3",
     "terminal": "v3c70r/terminal",

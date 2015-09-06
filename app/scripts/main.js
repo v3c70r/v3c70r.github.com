@@ -59,6 +59,8 @@ var commands =
                 if (args[0].toLowerCase() == 'original')    return '<img width=200 src="images/nyanOriginal.gif"/>';
                 if (args[0].toLowerCase() == 'zombie')      return '<img width=200 src="images/nyanZombie.gif"/>';
             }
+
+        paused = !paused;
         return "Usage: nayn [fat|mummy|original|zombie]";
     },
     'exit': function(args){
@@ -72,23 +74,50 @@ var commands =
     
 };
 
-//===========THREE JS========
 
+//===========THREE JS========
 
 //Ugly global vars like old GLUT
 var mouseX = 0, mouseY = 0;
 var windowHalfX = window.innerWidth/2;
 var windowHalfY = window.innerHeight/2;
 var scene, camera, renderer, material;
+scene = new THREE.Scene();
 var cube;
 var light;
+var updateFcts = [];
+
+//Nyan Cat
+var paused = true;
+
+var nyanCatStars = new THREEx.NyanCatStars();
+nyanCatStars.container.scale.multiplyScalar(9);
+scene.add(nyanCatStars.container);
+updateFcts.push( function(delta, now){
+    if (paused) return;
+    nyanCatStars.update(delta, now);});
+
+var nyanCat = new THREEx.NyanCat();
+nyanCat.container.scale.multiplyScalar(9);
+scene.add(nyanCat.container);
+updateFcts.push(function(delta, now){
+    if( paused )    return
+    nyanCat.update(delta, now)
+})
+
+var nyanCatRainbow = new THREEx.NyanCatRainbow();
+nyanCatRainbow.container.scale.multiplyScalar(9);
+scene.add(nyanCatRainbow.container);
+updateFcts.push(function(delta, now){
+    if( paused )    return
+    nyanCatRainbow.update(delta, now)
+})
 
 init();
-animate();
+doAnimate();
 
 function init(){
     //init scene
-    scene = new THREE.Scene();
     //init camera
     camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 2, 2000 );
     camera.position.z = 900;
@@ -117,17 +146,7 @@ function init(){
     //    cube = new THREE.Mesh(geometry, material);
     //    cube.position.set(0,0,0);
     //});
-    var nyanCatStars = new THREEx.NyanCatStars();
-    nyanCatStars.container.scale.multiplyScalar(9);
-    scene.add(nyanCatStars.container);
 
-    var nyanCat = new THREEx.NyanCat();
-    nyanCat.container.scale.multiplyScalar(9);
-    scene.add(nyanCat.container);
-    //updateFcts.push(function(delta, now){
-    //    if( paused )    return
-    //    nyanCat.update(delta, now)
-    //})
 
     //setting up light
     light = new THREE.DirectionalLight(0xffffff, 1.5);
@@ -173,10 +192,21 @@ function onDocumentTouchMove( event ) {
 
 }
 
-function animate() {
+var lastTimeMSec = null;
+function doAnimate() {
 
-    requestAnimationFrame( animate );
-    render();
+    //requestAnimationFrame( animate );
+    requestAnimationFrame( function animate(nowMsec){
+        requestAnimationFrame(animate)
+        lastTimeMSec = lastTimeMSec || nowMsec-1000/60;
+        var deltaMsec = Math.min(200, nowMsec - lastTimeMSec);
+        lastTimeMSec = nowMsec;
+        		// call each update function
+		updateFcts.forEach(function(updateFn){
+			updateFn(deltaMsec/1000, nowMsec/1000)
+		})
+        render();
+    });
 }
 
 function render() {
