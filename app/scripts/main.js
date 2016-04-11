@@ -50,6 +50,14 @@ terminal.setTheme("white");
 /** Put terminal commands in this JSON **/
 var commands =
 {
+    'about': function(args) {
+        return 'I\'m a graduate student at Concordia University in Montreal, QC. My research intrests lie in Computer Graphics. I sometimes do skateboard in the summer and love to do snowboard in the long boring winter in Quebec. Hope you enjoy your stay.<br/>'+
+            ' <a href="https://github.com/v3c70r" class="btn btn-social-icon btn-github"> <i class="fa fa-github"></i> </a> '+
+            ' <a href="https://instagram.com/mcvector" class="btn btn-social-icon btn-instagram"> <i class="fa fa-instagram"></i> </a> ';
+    },
+    'blog': function(args) {
+        return 'Hey, click <a href="http://v3c70r.github.io/blog"><b>here</b></a> to access my blog';
+    },
     'clear': function (args){terminal.clear();return '';},
 
     'theme': function (args){
@@ -65,21 +73,9 @@ var commands =
         return (Object.keys(this)).toString();
     },
 
-
     'hello': function(args) {
         return 'Hello, Human!';
     },
-
-    'blog': function(args) {
-        return 'Hey, click <a href="http://v3c70r.github.io/blog"><b>here</b></a> to access my blog';
-    },
-
-    'about': function(args) {
-        return 'I\'m a graduate student at Concordia University in Montreal, QC. My research intrests lie in Computer Graphics. I sometimes do skateboard in the summer and love to do snowboard in the long boring winter in Quebec. Hope you enjoy your stay.<br/>'+
-            ' <a href="https://github.com/v3c70r" class="btn btn-social-icon btn-github"> <i class="fa fa-github"></i> </a> '+
-            ' <a href="https://instagram.com/mcvector" class="btn btn-social-icon btn-instagram"> <i class="fa fa-instagram"></i> </a> ';
-    },
-
     'nyan': function(args) {
         if (args && args[0])
             if (args.length == 1)
@@ -92,7 +88,7 @@ var commands =
             }
 
         paused = !paused;
-        return "Usage: nayn [fat|mummy|original|zombie]";
+        return "Usage: nyan [fat|mummy|original|zombie]";
     },
     'exit': function(args){
         return 'OOps..';
