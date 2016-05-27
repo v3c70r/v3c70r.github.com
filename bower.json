@@ -1,0 +1,26 @@
+{
+  "name": "tsing-gu.com",
+  "authors": [
+    "Tsing <tsing.goo@gmail.com>"
+  ],
+  "description": "my homepage",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "nothing",
+    "much"
+  ],
+  "license": "MIT",
+  "homepage": "tsing-gu.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "terminal": "v3c70r/terminal",
+    "bootstrap": "~3.3.6"
+  }
+}
