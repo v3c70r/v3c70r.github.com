@@ -1,15 +1,23 @@
 {
-  "name": "v3c70r",
+  "name": "homepage",
   "version": "1.0.0",
   "description": "",
-  "main": "index.html",
+  "main": "index.js",
   "dependencies": {
-    "jquery.terminal": "^0.10.12"
+    "jquery": "^3.1.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/v3c70r/v3c70r.github.com.git"
+  },
   "author": "",
-  "license": "MIT"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/v3c70r/v3c70r.github.com/issues"
+  },
+  "homepage": "https://github.com/v3c70r/v3c70r.github.com#readme"
 }
