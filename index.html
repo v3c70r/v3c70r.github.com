@@ -97,8 +97,8 @@ jQuery(document).ready(function($) {
     </head>
     <body>
         <div id="tilda-bottom"></div>
-            <canvas id="canvas"></canvas>
 
+        <canvas style="background-color: rgba(1, 1, 1, 0);" id="custom" class="canvas" data-fragment-url="./shader/lava-lamp.frag" width="500px" height="200px"></canvas>
         <div id="nyan" class="card" z-default=1 z-hover=3>
             <img height=90 align=right src="http://cdn.nyanit.com/nyan2.gif"></img>
         </div>
@@ -114,7 +114,8 @@ jQuery(document).ready(function($) {
         <div id="nyan" class="card" z-default=1 z-hover=3 >
             <p>I'm an empty card</p>
         </div>
-        <script src="js/triangle.js"></script>
-        <script src="./js/card-depth.js"></script>
     </body>
+        <script src="./js/card-depth.js"></script>
+        <script src="./third_party/glslCanvas/main.js"><script>
+        <script src="./third_party/glslCanvas/GlslCanvas.js"><script>
 </html>
